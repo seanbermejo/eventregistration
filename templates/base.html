@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CS Event Registration</title>
+    <link href="{{ STATIC_URL }}style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="{{ STATIC_URL }}jquery.js"></script>
+    {% block js_extra %}
+    {% endblock js_extra %}
+</head>
+
+<body>
+    <table>
+        <tr class = 'even'>
+            <td colspan="8" class="right">
+            {% block header_p %}
+                {% if user.is_staff %}
+                    <a id="linkoff" href="{% url event_form %}">event</a>
+                {% endif %}
+                {% if user.is_authenticated %}
+                Hi, {{ user.username }}! (<a id="linkoff" href="{% url logout %}">logout</a>)
+                {% else %}
+                Please <a id="linkoff" href="{% url login %}">login</a>.
+                {% endif %}
+            {% endblock %}
+            </td>
+        </tr>
+        
+        <tr class = 'odd'>
+            {% if user.is_authenticated %}
+            <td>
+                <a href="{% url register_form %}">Register</a></li>
+            </td>
+            <td>
+            <a href="{% url attend_form %}">Attended</a></li>
+            </td>
+
+            
+            {% else %}
+            
+            <td>
+            {% block login %}{% endblock login %}
+            </td>
+            {% endif %}
+        </tr>
+               
+    </table>
+    <div id="content">
+    {% block content %}
+    {% endblock %}
+    </div>
+    <div id="footer">
+    {% block footer %}
+        <br /><br /><br />
+        <p>Copyright © 2012, <b>Source Code: The Official CSSEC Programming Unit.</b> <div class='hint'>All rights reserved.</div></p>
+    {% endblock %}
+    </div>
+    
+</body>
+</html>

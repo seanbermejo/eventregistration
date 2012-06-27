@@ -1,0 +1,86 @@
+{% block js_extra %}
+<script type="text/javascript">
+$(document).ready(function(){
+    //$(function()
+    //{
+
+    //    $( 'div.students' ).jPages({
+    //    containerID     : "students_table",
+    //    scrollBrowse    : true,
+    //    perPage : 10,
+    //    delay : 20
+    //     });
+
+    // });
+
+    // checked/unchecked event
+    $(":checkbox").change(function()
+    { 
+        q = $(this).val()
+        if($(this).attr("checked"))
+        {
+            //$( '#spinner' ).hide();
+            $( '#message' ).html( '&nbsp;' ).load( '{% url register %}?q=' + q );
+            
+        }
+        else
+        {
+            //$( '#spinner' ).hide();
+            $( '#message' ).html( '&nbsp;' ).load( '{% url withdraw %}?q=' + q );
+        }
+    
+        $( '#id_barcode').focus() 
+    });
+
+});
+</script>
+{% endblock js_extra %}        
+{% if students|length %}
+	<table>
+	<tr class='even'> 
+		<td colspan="8" class="right">
+		<strong>Found {{ students|length }} student{{ students|pluralize }}</strong>
+		</td>
+	</tr>
+    <div class="students">    
+        <table>
+            <thead>
+                <tr>
+                    <th id="stud_th">StudentID</th>
+                    <th id="stud_th">LastName</th>
+                    <th id="stud_th">FirstName</th>
+                    <th id="stud_th">MiddleInitial</th>
+                    <th id="stud_th">Sex</th>   
+                    <th id="stud_th">Year</th>    
+                    <th id="stud_th">Course</th>
+                    <th id="stud_th">Section</th>
+                    <th id="stud_th">Status</th>
+                </tr>
+            </thead>
+            <tbody id="students_table">
+	            {% for user in students %}
+	            <tr class="{% cycle 'odd' 'even' %}">
+                    <td>{{ user.0 }}</td>
+                    <td>{{ user.1 }}</td>
+                    <td>{{ user.2 }}</td>
+                    <td>{{ user.3 }}</td>
+                    <td>{{ user.4 }}</td>
+                    <td>{{ user.5 }}</td>
+                    <td>{{ user.6 }}</td>
+                    <td>{{ user.7 }}</td>
+                    {% if user.8 != null %}
+                    <td><input type='checkbox' id="{{ user.0 }}" checked='checked' value="{{ user.0 }}"/><span>{{ status }}</span></td>
+                      {% else %}
+                    <td><input type='checkbox' id="{{ user.0 }}" value="{{ user.0 }}"/><span>{{ status }}</span></td>
+                    {% endif %} 
+                </tr>
+	            {% endfor %}
+        </table>
+    </div>
+{% else %}
+	<div class="note">
+        {{ message }}
+	</div>
+{% endif %}
+
+

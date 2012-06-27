@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block login %}
+<form action="/login/" method="post">
+    {% if next %}
+        <input type="hidden" name="next" value="{{ next }}" />
+    {% endif %}
+    Username<br />
+    <input type="text" name="username" value="{{ username}}" /><br />
+    Password<br />
+    <input type="password" name="password" value="" /><br />
+    <div id="login_button"><button>Log In</button></div>
+</form>
+{% endblock login %}

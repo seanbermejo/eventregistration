@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+ 
+{% block js_extra %}
+   <script type="text/javascript">
+$( document ).ready( function() 
+{
+
+    // search by last_name
+	$( '#id_last_name' ).keyup( function(e) 
+        {               
+            var code = (e.keyCode ? e.keyCode : e.which);
+            if(code == 13) 
+            {     
+                q = $(this).val();  
+                
+                if (q != "")
+                {
+                    q = encodeURIComponent(q)   // converts input to URIComponent ex. %20=" "
+                    $( '#results' ).hide().html( '&nbsp;' ).load( '{% url search %}?q=' + q).fadeIn(500);
+                }
+                else
+                {
+                    $( '#results' ).hide();
+                }
+            }
+	    });
+    
+    // register student by barcode
+    $( '#id_barcode' ).change( function(e) 
+        {           
+          q = $( '#id_barcode' ).val();  
+
+              if (q != "")
+              {
+                  
+                  $( '#id_barcode').val("")
+                  $( '#results' ).hide().html( '&nbsp;' ).load( '{% url register_barcode %}?q=' + q ).fadeIn(500);
+              }
+              else
+              {
+                  $( '#results' ).hide();
+              }
+        
+        });
+       $( '#id_barcode').focus() 
+
+    //$( document ).ajaxStart( function() {
+    //	$( '#spinner' ).show();
+    //}).ajaxStop( function() {
+    //	$( '#spinner' ).hide();
+    //});
+});
+
+    </script>
+{% endblock js_extra %}
+
+{% block content %}
+
+<div>
+<h2>Student</h2>
+{{ studentform.as_table }}
+    <!--<div id="spinner" class="spinner" style="display:none;">
+        <img id="img-spinner" src="{{ STATIC_URL }}spinner.gif" />
+    </div>-->    
+    <tr>
+	<div class="margin">
+        <span class="hint">Type in a query string to search for students</span></br>
+		<div id="results"></div>
+	</div>
+    </tr>
+    
+</table>
+</div>
+{% endblock %}

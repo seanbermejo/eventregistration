@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block js_extra %}
+<script type="text/javascript">
+
+    $( document ).ready( function() 
+    {
+	    $( '#course' ).change( function(e) 
+            {     
+                      
+              q = $( '#course' ).val()
+              if (q != '---'){
+              $( '#results' ).hide().html( '' ).load( '{% url search_attend %}?q=' + q).fadeIn(500);}
+              
+            });
+    });
+</script>
+{% endblock js_extra %}
+
+{% block content %}
+<h2>Student</h2>
+<table>
+<tr>
+<td colspan="8" class="right">
+    <select id='course'>
+        <option value="---">---</option>
+        <option value="BS-IT">BS-IT</option>
+        <option value="BS-CS">BS-CS</option>
+        <option value="BS-IS">BS-IS</option>
+        <option value="%">all</option>
+    </select>
+    
+    <!--<select id='section'>
+        <option value="---">---</option>
+        <option value="Z1">Z1</option>
+        <option value="Z2">Z2</option>
+        <option value="Z4">Z4</option>
+        <option value="CS2">CS2</option>
+        <option value="CS3">CS3</option>
+        <option value="CS4">CS4</option>
+        <option value="IS2">IS2</option>
+        <option value="IS3">IS3</option>
+        <option value="IS4">IS4</option>
+        <option value="IT2A">IT2A</option>
+        <option value="IT2B">IT2B</option>
+        <option value="IT2C">IT2C</option>
+        <option value="IT3A">IT3A</option>
+        <option value="IT3B">IT3B</option>
+        <option value="IT4A">IT4A</option>
+        <option value="IT4B">IT4B</option>
+        <option value="IT4C">IT4C</option>
+    </select>-->
+    
+        
+</td>
+</tr>
+</table>
+<table id="stud_table">
+    <div class="margin">
+        <span class="hint">Select in a query string to search for students</span></br>        
+        <span id="spinner"><img src="{{ STATIC_URL }}spinner.gif" /></span>
+		<div id="results"></div>
+	</div>
+</table>
+{% endblock %}
