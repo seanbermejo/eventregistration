@@ -1,0 +1,46 @@
+<ul>
+<strong>CSSEC EVENT REGISTRATION</strong><br/>
+ATENEO DE DAVAO UNIVERSITY<br/>
+Jacinto st., Davao City<br/>
+STUDENTS REGISTERED by section {{ section }}<br/>
+
+{{ event.name }}:{{ event.date }}<p align=right>Total Attended: {{ attended }}</p>
+<hr/>
+<table>
+<tr>
+    <th align=left>StudentID</th>
+    <th align=left width=200>STUDENT NAME</th>
+    <th align=left>Course</th>
+    <th align=left width=50>Year</th>
+    <th align=left>Time</th>
+</tr>
+<tr><td><b>Male</b><td></tr>
+{% for user in students_m %}
+<tr>
+   <td>{{ user.0 }}</td>
+   <td>{{ user.1 }}, {{ user.2 }} {{ user.3 }}.</td>
+   <td>{{ user.4 }}</td>
+   <td width=50>{{ user.5 }}</td>
+            {% if user.6 != null %}
+            <td width=100>{{ user.7|date:"P" }}</td>
+            {% endif %}     
+</tr>
+{% endfor %}
+<tr><td><b>Female</b><td></tr>
+{% for user in students_f %}
+<tr>
+   <td>{{ user.0 }}</td>
+   <td>{{ user.1 }}, {{ user.2 }} {{ user.3 }}</td>
+   <td>{{ user.4 }}</td>
+   <td>{{ user.5 }}</td>
+   {% if user.6 != null %}
+   <td width=100>{{ user.7|date:"P" }}</td>
+   {% endif %}     
+</tr>
+{% endfor %}
+<ul>
+</table>
+<hr/>
+<p align=right><b>Source Code</b>: The Official CSSEC Programming Unit.</p>
+
+
